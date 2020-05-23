@@ -64,7 +64,7 @@ This example requires non-trivial resources, based on what a process will need i
 In addition to the pods, the operator will create a Persistent Volume Claim for any stateful
 processes in the cluster. In this example, each volume will be 128 GB. 
 
-By default each pod will have two containers and one init container.. The `foundationdb` container will run fdbmonitor and fdbserver, and is the main container for the pod. The `foundationdb-kubernetes-sidecar` container will run a sidecar image designed to help run FDB on Kubernetes. It is responsible for managing the fdbmonitor conf files and providing FDB binaries to the `foundationdb` container. The operator will create a config map that contains a template for the monitor conf file, and the sidecar will interpolate instance-specific fields into the conf and make it available to the fdbmonitor process through a shared volume. The "Upgrading a Cluster" has more detail on we manage binaries. The init container will run the same sidecar image, and will ensure that the initial binaries and dynamic conf are ready before the fdbmonitor process starts.
+By default each pod will have two containers and one init container.. The `foundationdb` container will run fdbmonitor and fdbserver, and is the main container for the pod. The `foundationdb-kubernetes-sidecar` container will run a sidecar image designed to help run FDB on Kubernetes. It is responsible for managing the fdbmonitor conf files and providing FDB binaries to the `foundationdb` container. The operator will create a config map that contains a template for the monitor conf file, and the sidecar will interpolate instance-specific fields into the conf and make it available to the fdbmonitor process through a shared volume. The [Upgrading a Cluster](#upgrading-a-cluster) section has more details on how we manage binaries. The init container will run the same sidecar image, and will ensure that the initial binaries and dynamic conf are ready before the fdbmonitor process starts.
 
 # Accessing a cluster
 
@@ -415,7 +415,7 @@ Example with automation options disabled:
 
 ## Option 3: Fake Replication
 
-In local test environments, you may not having any real fault domains to use, and may not care about availability. You can test in this environment while still having replication enabled by using fake fault domains:
+In local test environments, you may not be having any real fault domains to use, and may not care about availability. You can test in this environment while still having replication enabled by using fake fault domains:
 
     apiVersion: apps.foundationdb.org/v1beta1
     kind: FoundationDBCluster
